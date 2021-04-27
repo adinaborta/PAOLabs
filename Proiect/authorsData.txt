@@ -1,0 +1,5 @@
+6f3d3387-0f54-4183-8169-3fbbbf37a86e,Jane Austen,f0e7fd54-4435-4884-bdd1-e0f8036dfae0,1775-07-18,false
+b33d3153-dc90-4a41-98cd-490f6bd59704,Frank Herbert,c442d073-7b80-4fc1-8b8e-e922fd9272a9,1920-02-11,false
+4508c6f7-73d3-41a4-8786-4fc8f8643ffe,Barbara W. Tuchman,966ee92b-e659-4f0b-98cf-77e49345eafb,1912-02-06,false
+e88bc092-6a51-4253-8e3c-63dfe97387a1,Stephen King,2c4a4e10-fe79-48cd-ac1a-2b38a4557662,1947-09-21,false
+6dd3d2eb-4bb3-4b97-b43c-0dd04df9c609,Christopher Alexander,7038fc07-e084-4784-992d-e9a12fcde020,1936-10-04,false

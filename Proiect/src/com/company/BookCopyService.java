@@ -14,7 +14,7 @@ class BookCopyService {
     public int getNumberOfAvailableCopies(String bookId){
         int nr = 0;
         for(BookCopy bookCopy: this.bookCopies){
-            if(bookCopy.getBookId() == bookId)
+            if(bookCopy.getBookId().equals(bookId))
                 if(bookCopy.getAvailable()){
                     nr += 1;
                 }

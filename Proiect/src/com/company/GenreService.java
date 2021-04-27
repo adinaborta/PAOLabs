@@ -11,16 +11,17 @@ public class GenreService {
         this.genres.addAll(Arrays.asList(genres));
     }
 
-    public String getGenreByName(String genreName){
+    public String getGenreByName(String genreName) throws Exception {
         for (Genre genre: this.genres){
-            if(genre.getGenreName() == genreName){
+            if(genre.getGenreName().equals(genreName)){
                 return genre.getGenreId();
             }
         }
-        return "INCORRECT";
+        throw new Exception("Genre does not exist");
+
     }
 
-    public String getGenreIdFromScanner(){
+    public String getGenresFromScanner(){
         int i = 1;
         Scanner scanner = new Scanner(System.in);
         for(Genre genre: this.genres){
@@ -32,13 +33,13 @@ public class GenreService {
         return this.genres.get(position-1).getGenreId();
     }
 
-    public String getGenreNameById(String genreId){
+    public String getGenreNameById(String genreId) throws Exception {
         for (Genre genre: this.genres){
-            if(genre.getGenreId() == genreId){
+            if(genre.getGenreId().equals(genreId)){
                 return genre.getGenreName();
             }
         }
-        return "INCORRECT";
+        throw new Exception("Genre name does not exist");
     }
 
 

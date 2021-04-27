@@ -3,7 +3,7 @@ package com.company;
 import java.util.UUID;
 
 public class Genre {
-    private final String genreId = UUID.randomUUID().toString();
+    private final String genreId;
     private String genreName;
     private String genreDescription;
     private int aisle;
@@ -12,9 +12,19 @@ public class Genre {
         this.genreName = genreName;
         this.genreDescription = genreDescription;
         this.aisle = aisle;
+        this.genreId = UUID.randomUUID().toString();
     }
 
-    public Genre() {}
+    public Genre(String genreId, String genreName, String genreDescription, int aisle) {
+        this.genreId = genreId;
+        this.genreName = genreName;
+        this.genreDescription = genreDescription;
+        this.aisle = aisle;
+    }
+
+    public Genre(String id) {
+        this.genreId = UUID.randomUUID().toString();
+    }
 
     public void setGenreName(String genreName) {
         this.genreName = genreName;

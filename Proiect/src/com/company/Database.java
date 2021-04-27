@@ -12,7 +12,7 @@ public class Database {
     ReaderService readerService = new ReaderService();
 
 
-    public void sortMmebers(){
+    public void sortMembers(){
         Collections.sort(bookService.books);
     }
 
@@ -23,8 +23,8 @@ public class Database {
         System.out.println("Phone Number: ");
         String phoneNumber = scanner.nextLine();
         System.out.println("Please choose your favourite genre (option 1, 2...): ");
-        String genreId = this.genreService.getGenreIdFromScanner();
-        System.out.println("Chose a maximum 10 letters member name: ");
+        String genreId = this.genreService.getGenresFromScanner();
+        System.out.println("Chose a maximum 15 letters member name: ");
         String memberName = scanner.next();
 
         this.readerService.addReader(
@@ -35,16 +35,21 @@ public class Database {
 
     public void showBooksByGenre(){
         System.out.println("What genre are you looking for?");
-        String genreId = this.genreService.getGenreIdFromScanner();
+        String genreId = this.genreService.getGenresFromScanner();
         for(Book book: this.bookService.books){
-            if(book.getGenreId() == genreId){
-                System.out.println("'" + book.getTitle() + "'"
-                        + " by " + this.authorService.getAuthorNameById(book.getAuthorId())
-                        + " is a " + this.genreService.getGenreNameById(book.getGenreId()) + " book.\nThere are "
-                        + book.getNumberOfCopies() + " copies in total in the library and "
-                        + bookService.bookCopyService.getNumberOfAvailableCopies(book.getBookId()) + " available copies at the moment.\n"
+            if(book.getGenreId().equals(genreId)){
+                try {
+                    System.out.println("'" + book.getTitle() + "'"
+                            + " by " + this.authorService.getAuthorNameById(book.getAuthorId())
+                            + " is a " + this.genreService.getGenreNameById(book.getGenreId()) + " book.\nThere are "
+                            + book.getNumberOfCopies() + " copies in total in the library and "
+                            + bookService.bookCopyService.getNumberOfAvailableCopies(book.getBookId()) + " available copies at the moment.\n"
 
-                );
+                    );
+                }
+                catch (Exception e){
+                    System.out.println(e);
+                }
 
             }
         }
@@ -54,14 +59,19 @@ public class Database {
         System.out.println("What author are you looking for?");
         String authorId = this.authorService.getAuthorIdFromScanner();
         for(Book book: this.bookService.books){
-            if(book.getAuthorId() == authorId){
-                System.out.println("'" + book.getTitle() + "'"
-                        + " by " + this.authorService.getAuthorNameById(book.getAuthorId())
-                        + " is a " + this.genreService.getGenreNameById(book.getGenreId()) + " book.\nThere are "
-                        + book.getNumberOfCopies() + " copies in total in the library and "
-                        + bookService.bookCopyService.getNumberOfAvailableCopies(book.getBookId()) + " available copies at the moment.\n"
+            if(book.getAuthorId().equals(authorId)){
+                try {
+                    System.out.println("'" + book.getTitle() + "'"
+                            + " by " + this.authorService.getAuthorNameById(book.getAuthorId())
+                            + " is a " + this.genreService.getGenreNameById(book.getGenreId()) + " book.\nThere are "
+                            + book.getNumberOfCopies() + " copies in total in the library and "
+                            + bookService.bookCopyService.getNumberOfAvailableCopies(book.getBookId()) + " available copies at the moment.\n"
 
-                );
+                    );
+                }
+                catch (Exception e){
+                    System.out.println(e);
+                }
             }
         }
     }
@@ -109,7 +119,7 @@ public class Database {
         String readerId = this.readerService.getReaderIdByMemberName(memberName);
         String bookId = this.bookService.getBookIdByTitle(title);
 
-        this.borrowService.addBorrows(new Borrow(readerId, bookId));
+        this.borrowService.addBorrows(new Borrow(bookId, readerId));
         this.readerService.updateNumberOfBooks(readerId);
         this.bookService.updateFalseCopyStatus(bookId);
     }
@@ -117,14 +127,14 @@ public class Database {
     public void returnBook(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Your member name: ");
-        String memberName = scanner.next();
+        String memberName = scanner.nextLine();
         System.out.println("Book name: ");
         String title = scanner.nextLine();
 
         String readerId = this.readerService.getReaderIdByMemberName(memberName);
         String bookId = this.bookService.getBookIdByTitle(title);
 
-        int borrowIndex = this.borrowService.getBorrowIndexByMemberAndBook(readerId, bookId, this.bookService);
+        int borrowIndex = this.borrowService.getBorrowIndexByMemberAndBook(readerId, bookId);
 
         this.borrowService.borrowedBooksList.get(borrowIndex).setDateReturned(java.time.LocalDate.now());
         this.bookService.updateTrueCopyStatus(this.borrowService.borrowedBooksList.get(borrowIndex).getBookCopyId());

@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 public class Book implements Comparable<Book>{
-    private final String bookId = UUID.randomUUID().toString();
+    private final String bookId;
     private String title;
     private String authorId;
     private String genreId;
@@ -12,6 +12,16 @@ public class Book implements Comparable<Book>{
     private int yearPublished;
 
     public Book(String title, String authorId, String genreId, int numberOfCopies, int yearPublished) {
+        this.bookId = UUID.randomUUID().toString();
+        this.title = title;
+        this.authorId = authorId;
+        this.genreId = genreId;
+        this.numberOfCopies = numberOfCopies;
+        this.yearPublished = yearPublished;
+    }
+
+    public Book(String id, String title, String authorId, String genreId, int numberOfCopies, int yearPublished) {
+        this.bookId = id;
         this.title = title;
         this.authorId = authorId;
         this.genreId = genreId;

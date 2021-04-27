@@ -20,6 +20,20 @@ public class Author extends Person{
         }
     }
 
+    public Author(String id, String name, String mainGenreId, LocalDate dateOfBirth, Boolean contemporary) {
+        super(id, name);
+        this.mainGenreId = mainGenreId;
+        this.dateOfBirth = dateOfBirth;
+        this.contemporary = contemporary;
+    }
+
+    public Author(String name, String mainGenreId, LocalDate dateOfBirth, Boolean contemporary) {
+        super(name);
+        this.mainGenreId = mainGenreId;
+        this.dateOfBirth = dateOfBirth;
+        this.contemporary = contemporary;
+    }
+
     public void setMainGenreId(String mainGenreId) {
         this.mainGenreId = mainGenreId;
     }

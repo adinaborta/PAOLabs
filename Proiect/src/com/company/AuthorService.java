@@ -12,22 +12,22 @@ public class AuthorService{
         this.authors.addAll(Arrays.asList(authors));
     }
 
-    public String getAuthorIdByName(String authorName){
+    public String getAuthorIdByName(String authorName) throws Exception {
         for (Author author: this.authors){
-            if(author.getName() == authorName){
+            if(author.getName().equals(authorName)){
                 return author.getPersonId();
             }
         }
-        return "INCORRECT";
+        throw new Exception("Author does not exist");
     }
 
-    public String getAuthorNameById(String authorId){
+    public String getAuthorNameById(String authorId) throws Exception {
         for (Author author: this.authors){
-            if(author.getPersonId() == authorId){
+            if(author.getPersonId().equals(authorId)){
                 return author.getName();
             }
         }
-        return "INCORRECT";
+        throw new Exception("Author does not exist");
     }
 
     public String getAuthorIdFromScanner(){
@@ -44,7 +44,7 @@ public class AuthorService{
 
     public Author getAuthorById(String authorId){
         for(Author author: this.authors){
-            if(author.getPersonId() == authorId){
+            if(author.getPersonId().equals(authorId)){
                 return author;
             }
         }

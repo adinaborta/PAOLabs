@@ -23,6 +23,20 @@ public class Reader extends Person {
         this.memberName = memberName;
     }
 
+    public Reader(String id, String name, String phoneNumber, String favouriteGenreId, String memberName,
+                  LocalDate startingDate, MembershipOptions membershipOption, int currNumberOfBooks, int strikes) {
+        super(id, name);
+        this.favouriteGenreId = favouriteGenreId;
+        this.membershipOption = MembershipOptions.Standard;
+        this.startingDate = java.time.LocalDate.now();
+        this.phoneNumber = phoneNumber;
+        this.memberName = memberName;
+        this.startingDate = startingDate;
+        this.membershipOption = membershipOption;
+        this.currNumberOfBooks = currNumberOfBooks;
+        this.strikes = strikes;
+    }
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -85,5 +99,18 @@ public class Reader extends Person {
 
     public void updateStrikes(){
         this.strikes += 1;
+    }
+
+    @Override
+    public String toString() {
+        return "Reader{" +
+                "startingDate=" + startingDate +
+                ", membershipOption=" + membershipOption +
+                ", favouriteGenreId='" + favouriteGenreId + '\'' +
+                ", currNumberOfBooks=" + currNumberOfBooks +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", strikes=" + strikes +
+                ", memberName='" + memberName + '\'' +
+                '}';
     }
 }

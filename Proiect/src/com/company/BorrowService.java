@@ -10,10 +10,10 @@ public class BorrowService {
         this.borrowedBooksList.addAll(Arrays.asList(borrows));
     }
 
-    public int getBorrowIndexByMemberAndBook(String readerId, String bookId, BookService bookService){
+    public int getBorrowIndexByMemberAndBook(String readerId, String bookId){
         int i = 0;
         for(Borrow borrow: this.borrowedBooksList){
-            if(borrow.getReaderId() == readerId && bookId == bookService.getBookIdByCopyId(borrow.getBookCopyId())) {
+            if(borrow.getReaderId().equals(readerId) && bookId.equals(borrow.getBookCopyId())) {
                 return i;
             }
             i += 1;

@@ -3,11 +3,19 @@ package com.company;
 import java.util.UUID;
 
 public class BookCopy {
-    private final String bookCopyId = UUID.randomUUID().toString();
+    private final String bookCopyId;
     private String bookId;
-    private Boolean available = true;
+    private Boolean available;
 
     public BookCopy(String bookId) {
+        this.bookId = bookId;
+        this.bookCopyId = UUID.randomUUID().toString();
+        this.available  = true;
+    }
+
+    public BookCopy(String id, String bookId, Boolean available) {
+        this.bookCopyId = id;
+        this.available = available;
         this.bookId = bookId;
     }
 

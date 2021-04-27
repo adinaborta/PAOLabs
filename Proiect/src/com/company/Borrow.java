@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.UUID;
 
 public class Borrow {
-    private final String borrowId = UUID.randomUUID().toString();
+    private final String borrowId;
     private String bookCopyId;
     private String readerId;
     private LocalDate dateBorrowed;
@@ -13,9 +13,19 @@ public class Borrow {
     private LocalDate dateReturned = null;
 
     public Borrow(String bookCopyId, String readerId) {
+        this.borrowId = UUID.randomUUID().toString();
         this.bookCopyId = bookCopyId;
         this.readerId = readerId;
         this.dateBorrowed = java.time.LocalDate.now();
+    }
+
+    public Borrow(String borrowId, String bookCopyId, String readerId, LocalDate dateBorrowed, int limit, LocalDate dateReturned) {
+        this.borrowId = borrowId;
+        this.bookCopyId = bookCopyId;
+        this.readerId = readerId;
+        this.dateBorrowed = dateBorrowed;
+        this.limit = limit;
+        this.dateReturned = dateReturned;
     }
 
     public String getBorrowId() {

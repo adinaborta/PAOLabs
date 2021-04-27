@@ -1,0 +1,5 @@
+f0e7fd54-4435-4884-bdd1-e0f8036dfae0,Romance,Romantic books,20
+c442d073-7b80-4fc1-8b8e-e922fd9272a9,SF,Fantastic stories,10
+966ee92b-e659-4f0b-98cf-77e49345eafb,History,Real life stories,15
+2c4a4e10-fe79-48cd-ac1a-2b38a4557662,Horror,Scary stories,5
+7038fc07-e084-4784-992d-e9a12fcde020,Architecture,Artistic pictures,10
