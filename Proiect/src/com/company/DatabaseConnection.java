@@ -12,87 +12,87 @@ public class DatabaseConnection {
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pao", "root", "password");
             Statement stmt = conn.createStatement();
             //drop existing tables
-            String querySQL = "DROP TABLE IF EXISTS genre;";
-            stmt.executeUpdate(querySQL);
-            querySQL = "DROP TABLE IF EXISTS membership;";
-            stmt.executeUpdate(querySQL);
-            querySQL = "DROP TABLE IF EXISTS author;";
-            stmt.executeUpdate(querySQL);
-            querySQL = "DROP TABLE IF EXISTS reader;";
-            stmt.executeUpdate(querySQL);
-            querySQL = "DROP TABLE IF EXISTS book;";
-            stmt.executeUpdate(querySQL);
-            querySQL = "DROP TABLE IF EXISTS book_copy;";
-            stmt.executeUpdate(querySQL);
-            querySQL = "DROP TABLE IF EXISTS borrow;";
-            stmt.executeUpdate(querySQL);
+//            String querySQL = "DROP TABLE IF EXISTS genre;";
+//            stmt.executeUpdate(querySQL);
+//            querySQL = "DROP TABLE IF EXISTS membership;";
+//            stmt.executeUpdate(querySQL);
+//            querySQL = "DROP TABLE IF EXISTS author;";
+//            stmt.executeUpdate(querySQL);
+//            querySQL = "DROP TABLE IF EXISTS reader;";
+//            stmt.executeUpdate(querySQL);
+//            querySQL = "DROP TABLE IF EXISTS book;";
+//            stmt.executeUpdate(querySQL);
+//            querySQL = "DROP TABLE IF EXISTS book_copy;";
+//            stmt.executeUpdate(querySQL);
+//            querySQL = "DROP TABLE IF EXISTS borrow;";
+//            stmt.executeUpdate(querySQL);
 
-            // create new tables
-            querySQL = "CREATE TABLE genre (" +
-                    "  genre_id varchar(255) PRIMARY KEY NOT NULL," +
-                    "  genre_name varchar(255)," +
-                    "  genre_description varchar(255)," +
-                    "  aisle int" +
-                    ");";
-            stmt.executeUpdate(querySQL);
-            querySQL = "CREATE TABLE membership(" +
-                    "  membership_id varchar(255) PRIMARY KEY NOT NULL," +
-                    "  membership_name int NOT NULL" +
-                    ");";
-            stmt.executeUpdate(querySQL);
-            querySQL = "CREATE TABLE author(" +
-                    "  author_id varchar(255) PRIMARY KEY NOT NULL ," +
-                    "  name varchar(255) default NULL," +
-                    "  genre_id int NOT NULL," +
-                    "  date_of_birth DATE," +
-                    "  contemporary boolean DEFAULT false," +
-                    "  CONSTRAINT author_genre_fk FOREIGN KEY (genre_id) REFERENCES genre(genre_id) ON DELETE CASCADE" +
-                    ");";
-            stmt.executeUpdate(querySQL);
-            querySQL = "CREATE TABLE reader(" +
-                    "  reader_id varchar(255) PRIMARY KEY NOT NULL," +
-                    "  name varchar(255) default NULL," +
-                    "  membership_id int," +
-                    "  starting_date DATE," +
-                    "  phone_number varchar(255)," +
-                    "  member_name VARCHAR(255)," +
-                    "  current_number_of_books INT," +
-                    "  strikes int," +
-                    "  CONSTRAINT reader_membership_fk FOREIGN KEY (membership_id) REFERENCES membership(membership_id) ON DELETE CASCADE" +
-                    ");";
-            stmt.executeUpdate(querySQL);
-            querySQL = "CREATE TABLE book(" +
-                    "  book_id varchar(255) PRIMARY KEY NOT NULL," +
-                    "  title varchar(255)," +
-                    "  author_id int," +
-                    "  genre_id int," +
-                    "  number_of_copies int," +
-                    "  year_published int," +
-                    "  CONSTRAINT book_author_fk FOREIGN KEY (author_id) REFERENCES author(author_id) ON DELETE CASCADE," +
-                    "  CONSTRAINT book_genre_fk FOREIGN KEY (genre_id) REFERENCES genre(genre_id) ON DELETE CASCADE" +
-                    ");";
-            stmt.executeUpdate(querySQL);
-            querySQL = "CREATE TABLE book_copy(" +
-                    "  book_copy_id varchar(255) PRIMARY KEY NOT NULL," +
-                    "  book_id int," +
-                    "  available boolean," +
-                    "  CONSTRAINT book_book_copy_fk FOREIGN KEY (book_id) REFERENCES book(book_id) ON DELETE CASCADE" +
-                    ");";
-            stmt.executeUpdate(querySQL);
-            querySQL = "CREATE TABLE borrow(" +
-                    "  borrow_id varchar(255) PRIMARY KEY NOT NULL," +
-                    "  book_copy_id INT," +
-                    "  reader_id INT," +
-                    "  date_borrowed DATE," +
-                    "  limit_days INT," +
-                    "  date_returned DATE," +
-                    "  CONSTRAINT borrow_book_copy_fk FOREIGN KEY (book_copy_id) REFERENCES book_copy(book_copy_id) ON DELETE CASCADE," +
-                    "  CONSTRAINT borrow_reader_fk FOREIGN KEY (reader_id) REFERENCES reader(reader_id) ON DELETE CASCADE" +
-                    ");";
-            stmt.executeUpdate(querySQL);
-
+//            // create new tables
+//            querySQL = "CREATE TABLE genre (" +
+//                    "  genre_id varchar(255) PRIMARY KEY NOT NULL," +
+//                    "  genre_name varchar(255)," +
+//                    "  genre_description varchar(255)," +
+//                    "  aisle int" +
+//                    ");";
+//            stmt.executeUpdate(querySQL);
+//            querySQL = "CREATE TABLE membership(" +
+//                    "  membership_id varchar(255) PRIMARY KEY NOT NULL," +
+//                    "  membership_name int NOT NULL" +
+//                    ");";
+//            stmt.executeUpdate(querySQL);
+//            querySQL = "CREATE TABLE author(" +
+//                    "  author_id varchar(255) PRIMARY KEY NOT NULL ," +
+//                    "  name varchar(255) default NULL," +
+//                    "  genre_id int NOT NULL," +
+//                    "  date_of_birth DATE," +
+//                    "  contemporary boolean DEFAULT false," +
+//                    "  CONSTRAINT author_genre_fk FOREIGN KEY (genre_id) REFERENCES genre(genre_id) ON DELETE CASCADE" +
+//                    ");";
+//            stmt.executeUpdate(querySQL);
+//            querySQL = "CREATE TABLE reader(" +
+//                    "  reader_id varchar(255) PRIMARY KEY NOT NULL," +
+//                    "  name varchar(255) default NULL," +
+//                    "  membership_id int," +
+//                    "  starting_date DATE," +
+//                    "  phone_number varchar(255)," +
+//                    "  member_name VARCHAR(255)," +
+//                    "  current_number_of_books INT," +
+//                    "  strikes int," +
+//                    "  CONSTRAINT reader_membership_fk FOREIGN KEY (membership_id) REFERENCES membership(membership_id) ON DELETE CASCADE" +
+//                    ");";
+//            stmt.executeUpdate(querySQL);
+//            querySQL = "CREATE TABLE book(" +
+//                    "  book_id varchar(255) PRIMARY KEY NOT NULL," +
+//                    "  title varchar(255)," +
+//                    "  author_id int," +
+//                    "  genre_id int," +
+//                    "  number_of_copies int," +
+//                    "  year_published int," +
+//                    "  CONSTRAINT book_author_fk FOREIGN KEY (author_id) REFERENCES author(author_id) ON DELETE CASCADE," +
+//                    "  CONSTRAINT book_genre_fk FOREIGN KEY (genre_id) REFERENCES genre(genre_id) ON DELETE CASCADE" +
+//                    ");";
+//            stmt.executeUpdate(querySQL);
+//            querySQL = "CREATE TABLE book_copy(" +
+//                    "  book_copy_id varchar(255) PRIMARY KEY NOT NULL," +
+//                    "  book_id int," +
+//                    "  available boolean," +
+//                    "  CONSTRAINT book_book_copy_fk FOREIGN KEY (book_id) REFERENCES book(book_id) ON DELETE CASCADE" +
+//                    ");";
+//            stmt.executeUpdate(querySQL);
+//            querySQL = "CREATE TABLE borrow(" +
+//                    "  borrow_id varchar(255) PRIMARY KEY NOT NULL," +
+//                    "  book_copy_id INT," +
+//                    "  reader_id INT," +
+//                    "  date_borrowed DATE," +
+//                    "  limit_days INT," +
+//                    "  date_returned DATE," +
+//                    "  CONSTRAINT borrow_book_copy_fk FOREIGN KEY (book_copy_id) REFERENCES book_copy(book_copy_id) ON DELETE CASCADE," +
+//                    "  CONSTRAINT borrow_reader_fk FOREIGN KEY (reader_id) REFERENCES reader(reader_id) ON DELETE CASCADE" +
+//                    ");";
+//            stmt.executeUpdate(querySQL);
+//
             // insert data
-            querySQL = "INSERT INTO genre VALUES ('1', 'Romance', 'Sweet love', 20);";
+            String querySQL = "INSERT INTO genre VALUES ('1', 'Romance', 'Sweet love', 20);";
             stmt.executeUpdate(querySQL);
             querySQL = "INSERT INTO genre VALUES ('2', 'SF', 'Fantastic stories', 10);";
             stmt.executeUpdate(querySQL);

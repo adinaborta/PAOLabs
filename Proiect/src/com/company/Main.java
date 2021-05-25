@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Main {
-    Connection db = DatabaseConnection.getInstance().conn;
+    public static Connection db = DatabaseConnection.getInstance().conn;
     public static void main(String[] args) throws IOException {
         Database database = new Database();
 
@@ -101,7 +101,7 @@ public class Main {
         }
 
     }
-    public void showAllMembers(){
+    void showAllMembers(){
         System.out.println("For this action we need an authorised password: ");
         Scanner scanner = new Scanner(System.in);
         for(int i = 2; i >= 0; i--){
@@ -132,7 +132,7 @@ public class Main {
             }
         }
     }
-    public String getGenresFromScanner(){
+    String getGenresFromScanner(){
         try{
             Statement stmt1 = db.createStatement();
             Scanner scanner = new Scanner(System.in);
@@ -143,7 +143,7 @@ public class Main {
             var rs = stmt1.executeQuery(querySql);
             String [] genres = new String[100];
             while(rs.next()){
-                genres[i-1] = rs.getString("genre_name";
+                genres[i-1] = rs.getString("genre_name");
                 System.out.println(i + ". " + genres[i-1]);
             }
 
@@ -165,7 +165,7 @@ public class Main {
         }
         return "Err";
     }
-    public void showBooksByGenre(){
+    void showBooksByGenre(){
         System.out.println("What genre are you looking for?");
         String genreId = getGenresFromScanner();
         try {
@@ -191,7 +191,7 @@ public class Main {
             System.out.println(ex);
         }
     }
-    public String getAuthorIdFromScanner(){
+    String getAuthorIdFromScanner(){
         try{
             Statement stmt1 = db.createStatement();
             Scanner scanner = new Scanner(System.in);
@@ -202,7 +202,7 @@ public class Main {
             var rs = stmt1.executeQuery(querySql);
             String [] authors = new String[100];
             while(rs.next()){
-                authors[i-1] = rs.getString("name";
+                authors[i-1] = rs.getString("name");
                 System.out.println(i + ". " + authors[i-1]);
             }
 
@@ -225,7 +225,7 @@ public class Main {
         return"Error";
     }
 
-    public void showBooksByAuthor(){
+    void showBooksByAuthor(){
         System.out.println("What author are you looking for?");
         String authorId = getAuthorIdFromScanner();
         try {
@@ -252,7 +252,7 @@ public class Main {
         }
     }
 
-    public void incrementNumberOfBooks(String readerId){
+    void incrementNumberOfBooks(String readerId){
         try{
             String querySQL= (
                     "SELECT current_number_of_books" +
