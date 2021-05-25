@@ -17,3 +17,5 @@ Commit-changes,2021-04-27 22:49:24.444
 Select-available-books,2021-04-27 23:08:45.121
 Return-book,2021-04-27 23:09:06.017
 Commit-changes,2021-04-27 23:09:10.177
+Added-new-member,2021-05-06 11:24:48.789
+Commit-changes,2021-05-06 11:24:55.801

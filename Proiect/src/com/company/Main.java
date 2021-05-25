@@ -1,12 +1,15 @@
 package com.company;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Main {
-
+    Connection db = DatabaseConnection.getInstance().conn;
     public static void main(String[] args) throws IOException {
         Database database = new Database();
 
@@ -97,6 +100,182 @@ public class Main {
 
         }
 
-
     }
+    public void showAllMembers(){
+        System.out.println("For this action we need an authorised password: ");
+        Scanner scanner = new Scanner(System.in);
+        for(int i = 2; i >= 0; i--){
+            String pass = scanner.nextLine();
+            if(!pass.equals("librarian")){
+                System.out.println("Wrong password. " + i + " chances left.");
+            }
+            else{
+                try{
+                    String querySQL= (
+                            "SELECT *" +
+                                    "FROM reader");
+                    var stmt = db.createStatement();
+                    var rs = stmt.executeQuery(querySQL);
+                    while(rs.next()){
+                        System.out.println(rs.getString("name") + " " +
+                                rs.getString("starting_date") + " " +
+                                rs.getString("phone_number") + " " +
+                                rs.getString("member_name") + " " +
+                                rs.getString("member_name") + " " +
+                                rs.getString("current_number_of_books") + "\n");
+                    }
+                }
+                catch (SQLException ex){
+                    System.out.println(ex);
+                }
+                return;
+            }
+        }
+    }
+    public String getGenresFromScanner(){
+        try{
+            Statement stmt1 = db.createStatement();
+            Scanner scanner = new Scanner(System.in);
+            String querySql =
+                    "SELECT genre_name " +
+                            "FROM genre ";
+            int i = 1;
+            var rs = stmt1.executeQuery(querySql);
+            String [] genres = new String[100];
+            while(rs.next()){
+                genres[i-1] = rs.getString("genre_name";
+                System.out.println(i + ". " + genres[i-1]);
+            }
+
+            int position = scanner.nextInt();
+            querySql =
+                    "SELECT genre_id " +
+                            "FROM genre " +
+                            "WHERE genre_name=?;";
+            var stmt2 = db.prepareStatement(querySql);
+            stmt2.setString(1, genres[position - 1]);
+            rs = stmt2.executeQuery();
+            if(rs.next()){
+                return rs.getString("genre_id");
+            }
+
+        }
+        catch(SQLException ex){
+            System.out.println(ex);
+        }
+        return "Err";
+    }
+    public void showBooksByGenre(){
+        System.out.println("What genre are you looking for?");
+        String genreId = getGenresFromScanner();
+        try {
+            String querySQL= (
+                    "SELECT b.title, a.name, g.genre_name, b.number_of_copies, b.year_published" +
+                            "FROM genre g, book b, author a " +
+                            "WHERE genre_id = ?" +
+                            "AND b.genre_id = g.genre_id " +
+                            "AND b.author_id = a.author_id;");
+            var stmt = db.prepareStatement(querySQL);
+            stmt.setString(1, genreId);
+            var rs = stmt.executeQuery();
+            while(rs.next()){
+                System.out.println(rs.getString("title") + " " +
+                        rs.getString("name") + " " +
+                        rs.getString("genre_name") + " " +
+                        rs.getString("number_of_copies") + " " +
+                        rs.getString("year_published") + "\n");
+            }
+        }
+        catch (
+                SQLException ex){
+            System.out.println(ex);
+        }
+    }
+    public String getAuthorIdFromScanner(){
+        try{
+            Statement stmt1 = db.createStatement();
+            Scanner scanner = new Scanner(System.in);
+            String querySql =
+                    "SELECT name " +
+                            "FROM author ";
+            int i = 1;
+            var rs = stmt1.executeQuery(querySql);
+            String [] authors = new String[100];
+            while(rs.next()){
+                authors[i-1] = rs.getString("name";
+                System.out.println(i + ". " + authors[i-1]);
+            }
+
+            int position = scanner.nextInt();
+            querySql =
+                    "SELECT author_id " +
+                            "FROM author " +
+                            "WHERE name=?;";
+            var stmt2 = db.prepareStatement(querySql);
+            stmt2.setString(1, authors[position - 1]);
+            rs = stmt2.executeQuery();
+            if(rs.next()){
+                return rs.getString("author_id");
+            }
+
+        }
+        catch(SQLException ex){
+            System.out.println(ex);
+        }
+        return"Error";
+    }
+
+    public void showBooksByAuthor(){
+        System.out.println("What author are you looking for?");
+        String authorId = getAuthorIdFromScanner();
+        try {
+            String querySQL= (
+                    "SELECT b.title, a.name, g.genre_name, b.number_of_copies, b.year_published" +
+                            "FROM genre g, book b, author a " +
+                            "WHERE author_id = ?" +
+                            "AND b.genre_id = g.genre_id " +
+                            "AND b.author_id = a.author_id;");
+            var stmt = db.prepareStatement(querySQL);
+            stmt.setString(1, authorId);
+            var rs = stmt.executeQuery();
+            while(rs.next()){
+                System.out.println(rs.getString("title") + " " +
+                        rs.getString("name") + " " +
+                        rs.getString("genre_name") + " " +
+                        rs.getString("number_of_copies") + " " +
+                        rs.getString("year_published") + "\n");
+            }
+        }
+        catch (
+                SQLException ex){
+            System.out.println(ex);
+        }
+    }
+
+    public void incrementNumberOfBooks(String readerId){
+        try{
+            String querySQL= (
+                    "SELECT current_number_of_books" +
+                            "FROM reader" +
+                            "WHERE reader_id = ?;");
+            var stmt = db.createStatement();
+            var rs = stmt.executeQuery(querySQL);
+            int nr_books;
+            if(rs.next()){
+                nr_books = rs.getInt("current_number_of_books");
+            }
+
+            querySQL= (
+                    "UPDATE reader" +
+                            "SET current_number_of_books = ?" +
+                            "WHERE reader_id = ?;");
+            var stmt2 = db.createStatement();
+            var rs2 = stmt2.executeUpdate(querySQL);
+        }
+        catch (SQLException ex){
+            System.out.println(ex);
+        }
+    }
+
+
 }
